@@ -1,0 +1,328 @@
+@charset "UTF-8";
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section,
+audio,
+video,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+
+header,
+section,
+footer,
+aside,
+nav,
+main,
+article,
+figure {
+    display: block;
+}
+
+body,
+input,
+textarea,
+select,
+table,
+button,
+code {
+    font-family: Helvetica, "Apple SD Gothic Neo", sans-serif;
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+body {
+    position: relative;
+    background-color: #fff;
+    word-wrap: break-word;
+    word-break: keep-all;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+fieldset {
+    border: 0;
+}
+
+img {
+    vertical-align: top;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+em,
+address,
+cite,
+dfn {
+    font-style: normal;
+}
+
+abbr {
+    text-decoration: none;
+}
+
+a,
+label,
+button,
+input[type='checkbox'],
+input[type='radio'] {
+    color: inherit;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+hr {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    overflow: auto;
+    border: 1px solid #bcbcbc;
+    resize: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+button {
+    overflow: visible;
+    border: none;
+    border-radius: 0;
+    background: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+}
+
+button[disabled] {
+    cursor: default;
+}
+
+button,
+[role='button'] {
+    cursor: pointer;
+}
+
+input[type='image'],
+input[type='text'],
+input[type='submit'],
+input[type='password'] {
+    border-radius: 0;
+}
+
+input[type='text']::-ms-clear {
+    display: none;
+}
+
+input[type='password']::-ms-reveal {
+    display: none;
+}
+
+body {
+    background-color: #fff;
+}
+
+legend,
+.blind {
+    overflow: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    font-size: medium;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.container {
+    padding: 50px 20px 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 700px;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.title {
+    font-size: 36px;
+}
+
+.area_input {
+    display: flex;
+    margin-top: 10px;
+}
+
+.area_input .input_todo {
+    flex: 1 0 auto;
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 46px;
+    color: #000;
+    border: 1px solid #ccc;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.area_input .input_todo:focus {
+    outline: transparent;
+    border-color: #0099ff;
+}
+
+.area_input .input_todo::-webkit-input-placeholder {
+    font-weight: 400;
+    color: #acacac;
+}
+
+.area_input .input_todo::-moz-placeholder {
+    font-weight: 400;
+    color: #acacac;
+}
+
+.area_input .input_todo:-ms-input-placeholder {
+    font-weight: 400;
+    color: #acacac;
+}
+
+.area_input .input_todo:-moz-placeholder {
+    font-weight: 400;
+    color: #acacac;
+}
+
+.area_input .button_submit {
+    display: inline-block;
+    padding: 0 15px;
+    font-size: 16px;
+    line-height: 46px;
+    color: #fff;
+    background-color: #0099ff;
+    border: 1px solid #0099ff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-sizing: border-box;
+}
+
+.list_todo {
+    margin-top: 10px;
+}
+
+.done {
+    text-decoration-line: line-through;
+    font-style: italic;
+}
+
+.list_todo .item_todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 15px;
+    margin-top: -1px;
+    border: 1px solid #ccc;
+}
+
+.list_todo .item_todo:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.list_todo .item_todo:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.list_todo .text {
+    padding-right: 10px;
+    font-size: 14px;
+    line-height: 1.44;
+    color: #222;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    cursor: pointer;
+}
+
+.list_todo .button_delete, .list_todo .button_edit{
+    margin-right: -5px;
+    padding: 5px;
+}
+
+.list_todo .button_delete .icon_delete {
+    background-color: #ccc;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.list_todo .button_delete .icon_delete:before, .list_todo .button_delete .icon_delete:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 1px;
+    background-color: #fff;
+}
+
+
+.list_todo .button_delete .icon_delete:before {
+    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.list_todo .button_delete .icon_delete:after {
+    -webkit-transform: translate(-50%, -50%) rotate(135deg);
+    transform: translate(-50%, -50%) rotate(135deg);
+}
