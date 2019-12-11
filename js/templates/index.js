@@ -1,2 +1,2 @@
 export { TodoListTemplate } from './TodoList.js';
-export { TodoCounterTemplate } from './TodoCounter.js';
+export { TodoCountTemplate } from './TodoCount.js';

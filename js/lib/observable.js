@@ -1,17 +1,36 @@
 export default class Observable {
 	constructor() {
-		this._observerList = new Set();
+		this._observerList = {};
 	}
 
-	on(observer) {
-		this._observerList.add(observer);
+	register(eventName, handler, context) {
+		let handleArray = this._observerList[eventName] || [];
+
+		handleArray.push({ handler, context });
+		this._observerList[eventName] = handleArray;
 	}
 
-	off(observer) {
-    this._observerList.delete(observer);
-  }
+	unregister(eventName, handler, context) {
+		let handlerArray = this._observerList[eventName] || [];
 
-	fireObservers(data) {
-    this._observerList.forEach(observer => observer(data))
-  }
+		if (handlerArray.length === 0) {
+			return;
+		}
+
+		this._observerList[eventName] = handlerArray.filter(item => {
+			return (item.handler !== handler || item.context !== context);
+		});
+	}
+
+	notify(eventName, data) {
+		let handlerArray = this._observerList[eventName];
+
+		if (handlerArray.length === 0) {
+			return;
+		}
+
+		handlerArray.map(item => {
+			item.handler.call(item.context, data);
+		});
+	}
 }

@@ -1,4 +1,4 @@
-export class TodoCounterTemplate {
+export class TodoCountTemplate {
   constructor() {
     this.defaultemplate = `
       all({{all}}), active({{active}}), done({{done}})

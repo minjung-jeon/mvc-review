@@ -1,15 +1,15 @@
 export class TodoController {
   constructor({
-		model: { todoModel },
-		view: { todoFormView, todoListView, todoCounterView }
+		state: { todoState },
+		view: { todoFormView, todoListView, todoCountView }
 	}) {
-    // model
-    this.todoModel = todoModel;
+    // state
+    this.todoState = todoState;
 
     // view
     this.todoFormView = todoFormView;
 		this.todoListView = todoListView;
-    this.todoCounterView = todoCounterView;
+    this.todoCountView = todoCountView;
 
     this._bindEventHandlers();
 		this._registerObservers();
@@ -23,18 +23,14 @@ export class TodoController {
   }
 
   _registerObservers() {
-    this._observeAddingTodo();
-  }
-
-  _observeAddingTodo() {
-    this.todoModel.on(this.renderListView.bind(this, this.todoModel));
-    this.todoModel.on(this.renderCounterView.bind(this, this.todoModel));
+    this.todoState.register('UPDATE_TODOS', this.renderListView, this);
+    this.todoState.register('UPDATE_COUNT', this.renderCountView, this);
   }
 
   init() {
-    if(this.todoModel.reqUrl) {
-      this.todoModel.initStoredData();
-    }
+    // if() {
+    //   this.todoModel.initStoredData();
+    // }
     document.addEventListener('DOMContentLoaded', () => {
       this.todoFormView.init();
       this.todoListView.init();
@@ -42,27 +38,27 @@ export class TodoController {
   }
 
   // control view
-  renderListView({ todos }) {
+  renderListView(todos) {
 		this.todoListView.render(todos);
   }
 
-  renderCounterView({ todoCounter }) {
-    this.todoCounterView.render(todoCounter);
+  renderCountView(count) {
+    this.todoCountView.render(count);
   }
   
   // view event handler
-  handleSubmitForm(todoStr) {
-    this.todoModel.addTodo({ title : todoStr });
+  handleSubmitForm(title) {
+    this.todoState.addTodo({ title });
     this.todoFormView.resetInput();
   }
   
-  handleRemoveItem(todoId) {
-    this.todoModel.removeTodo(todoId);
+  handleRemoveItem(id) {
+    this.todoState.removeTodo(id);
     this.todoFormView.resetInput();
   }
 
-  handleDoneStatus(todoId) {
-    this.todoModel.toggleDoneStatus(todoId);
+  handleDoneStatus(id) {
+    this.todoState.toggleTodo(id);
     this.todoFormView.resetInput();
   }
 }

@@ -11,6 +11,8 @@ export class TodoListTemplate {
   }
 
   insert(data) {
+    console.log(data);
+    
     return [...data].reduce((acc, todo) => {
       const idValue = todo[0];
 			const { title, done } = todo[1];
