@@ -1,14 +1,12 @@
 export class CountModel {
 	constructor() {
-    		super();
-
 		this._active = 0;
 		this._done = 0;
 		this._all = 0;
 	}
 
 	set all(count) {
-	    	this._all = count;
+		this._all = count;
 	}
 
 	get all() {
@@ -16,7 +14,7 @@ export class CountModel {
 	}
 
 	set active(count) {
-	      	this._active = count;
+		this._active = count;
 	}
 
 	get active() {

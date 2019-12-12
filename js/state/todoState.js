@@ -20,30 +20,34 @@ export default class TodoState extends Observable {
     this.count.active = this.count.active + active;
     this.count.done = this.count.done + done;
     this.count.all = this.count.active + this.count.done;
-
-    // this.count.active(this.count.active + active);
-    // this.count.done(this.count.done + done);
-    // this.count.all(this.count.active + this.count.done);
   }
 
-  addTodo({
-    id = Date.now(),
-    title,
-    done = false
-  }) {
-    // 하나의 객체가 들어왔을 때 -> todo x 1개
-    this.todos.set(id, new TodoModel({ title, done }));
-    this._setCount(1, 0);
+  addTodo(data) {
+    // 객체 모음 배열이 들어왔을 때 -> 데이터 받아올 경우
+    if(Array.isArray(data)) {
+      let countActive = 0;
+      let countDone = 0;
 
-    // 객체 모음 배열이 들어왔을 때 -> 복수 처리
-    // let countActive = 0;
-    // let countDone = 0;
-    // todoArray.map(({ id = Date.now(), title, done = false }) => {
-    //   this.todos.set(id,  new TodoModel({ title, done }));
-    //   done ? done++ : active++;
-    //   this._setCount(countActive, countDone);
-    // });
-
+      data.map(({ 
+        id = Date.now(), 
+        title, 
+        done = false
+      }) => {
+        this.todos.set(id,  new TodoModel({ title, done }));
+        done ? countDone++ : countActive++;
+      });
+      this._setCount(countActive, countDone);
+    } else {
+      // 하나의 객체가 들어왔을 때 -> todo x 1개
+      const {
+        id = Date.now(),
+        title,
+        done = false
+      } = data;
+      this.todos.set(id, new TodoModel({ title, done }));
+      this._setCount(1, 0);
+    }
+    
     this.updateTodos();
     this.updateCount();
   }

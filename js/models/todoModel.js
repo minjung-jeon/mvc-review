@@ -4,23 +4,19 @@ export class TodoModel {
 		this.done = done;
   }
 
-  // addTodo(todoObj) {
-  //   this._saveData(todoObj);
-  // }
+  set done(status) {
+    this._done = status;
+  }
 
-  // removeTodo(todoId) {
-  //   this._removeData(todoId);
-  // }
+  get done() {
+    return this._done;
+  }
 
-  // _removeData(id) {
-  //   this.todos.delete(id);
-  // }
+  set done(status) {
+    this._done = status;
+  }
 
-  // _toggleDoneData(id) {
-  //   const todo = this.todos.get(id);
-
-  //   this.todos.set(id, Object.assign(todo, {
-  //     'done': !todo.done
-  //   }));
-  // }
+  get done() {
+    return this._done;
+  }
 }
