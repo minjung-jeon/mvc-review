@@ -24,8 +24,19 @@ export default class TodoState extends Observable {
   }
 
   addTodo(data) {
-    // 객체 모음 배열이 들어왔을 때 -> 데이터 받아올 경우
-    if(Array.isArray(data)) {
+    const {
+	id = Date.now(),
+	title,
+	done = false
+    } = data;
+    this.todos.set(id, new TodoModel({ title, done }));
+    this._setCount(1, 0);
+ 
+    this.updateTodos();
+    this.updateCount();
+  }
+	
+  addAllTodo(data) {
       let countActive = 0;
       let countDone = 0;
 
@@ -37,22 +48,8 @@ export default class TodoState extends Observable {
         this.todos.set(id, new TodoModel({ title, done }));
         done ? countDone++ : countActive++;
       });
+	  
       this._setCount(countActive, countDone);
-    } else if (isObject(data)) {
-      // 하나의 객체가 들어왔을 때 -> todo x 1개
-      const {
-        id = Date.now(),
-        title,
-        done = false
-      } = data;
-      this.todos.set(id, new TodoModel({ title, done }));
-      this._setCount(1, 0);
-    } else {
-      return;
-    }
-    
-    this.updateTodos();
-    this.updateCount();
   }
 
   removeTodo(id) {
