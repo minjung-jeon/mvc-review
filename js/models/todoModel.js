@@ -11,12 +11,4 @@ export class TodoModel {
   get done() {
     return this._done;
   }
-
-  set done(status) {
-    this._done = status;
-  }
-
-  get done() {
-    return this._done;
-  }
 }

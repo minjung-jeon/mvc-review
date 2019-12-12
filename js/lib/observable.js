@@ -4,14 +4,14 @@ export default class Observable {
 	}
 
 	register(eventName, handler, context) {
-		let handleArray = this._observerList[eventName] || [];
+		const handleArray = this._observerList[eventName] || [];
 
 		handleArray.push({ handler, context });
 		this._observerList[eventName] = handleArray;
 	}
 
 	unregister(eventName, handler, context) {
-		let handlerArray = this._observerList[eventName] || [];
+		const handlerArray = this._observerList[eventName] || [];
 
 		if (handlerArray.length === 0) {
 			return;
@@ -23,7 +23,7 @@ export default class Observable {
 	}
 
 	notify(eventName, data) {
-		let handlerArray = this._observerList[eventName];
+		const handlerArray = this._observerList[eventName];
 
 		if (handlerArray.length === 0) {
 			return;

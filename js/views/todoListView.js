@@ -1,36 +1,60 @@
 import ViewComponent from '../lib/viewComponent.js';
-import { TodoListTemplate } from '../templates/index.js'
-import { findParentNode } from '../utils/index.js';
+import { TODO_ITEM_TEMPLATE } from '../templates/index.js'
+import { changeDataToDom, findParentNode } from '../utils/index.js';
 
 export class TodoListView extends ViewComponent {
   constructor() {
     super({
       element: document.querySelector('.list_todo'),
-      template: new TodoListTemplate(),
+      template: TODO_ITEM_TEMPLATE,
     });
+    this.isSetEventListner = false;
     this.handleRemove = null;
     this.handleDoneStatus = null;
-  }
-
-  init() {
-    this.registerEvents();
-  }
-
-  registerEvents() {
-    let self = this;
-
-    self.element.addEventListener('click', function(e) {
+    this.handleEvents = e => {
       const target = e.target;
       // dataset메소드 보다 getAttribute메소드가 성능에 유리
       const targetDomName = target.getAttribute('data-dom-name');
-      const selectedId = parseInt(findParentNode('todoItem', target).dataset.id, 10);
+      const parentDom = findParentNode('todoItem', target);
+      const selectedId = parseInt(parentDom.getAttribute('data-id'), 10);
 
       if(targetDomName === 'todoDelBtn') {
-        self._onRemove.call(self, selectedId);
+        this._onRemove(selectedId);
       } else if(targetDomName === 'text' || 'item') {
-        self._onDoneStatus.call(self, selectedId);
+        this._onDoneStatus(selectedId);
       }
-    });
+    };
+  }
+
+  registerEvents() {
+    this.element.addEventListener('click', this.handleEvents);
+  }
+
+  unregisterEvents() {
+    this.element.removeEventListener('click', this.handleEvents);
+  }
+
+  toggleSetEventListener(size, flag) {
+    if(size === 0 && flag) {
+      console.log('removeEVENT');
+      this.unregisterEvents();
+      this.isSetEventListner = false;
+    } else if(size > 0 && !flag) {
+      console.log('addEVENT');
+      this.registerEvents();
+      this.isSetEventListner = true;
+    }
+  }
+
+  todoHtmlParser(acc, todo) {
+    const defaultTemplate = this.template;
+    const idValue = todo[0];
+    const { title, done } = todo[1];
+    const classNames = `item_todo ${done ? 'done' : ''}`;
+
+    let template = changeDataToDom({ classNames, idValue, title }, defaultTemplate);
+    
+    return acc += template;
   }
 
   _onRemove(id) {
@@ -42,8 +66,9 @@ export class TodoListView extends ViewComponent {
   }
 
   render(todos) {
-    const resultTodosHTML = this.template.insert(todos);
-
+    const resultTodosHTML = [...todos].reduce(this.todoHtmlParser.bind(this), '');
+    
+    this.toggleSetEventListener(todos.size, this.isSetEventListner);
     this.element.innerHTML = resultTodosHTML;
   }
 }

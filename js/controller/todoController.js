@@ -15,7 +15,6 @@ export class TodoController {
 		this._registerObservers();
   }
 
-  // register
   _bindEventHandlers() {
     this.todoFormView.handleSubmit = this.handleSubmitForm.bind(this);
     this.todoListView.handleRemove = this.handleRemoveItem.bind(this);
@@ -28,12 +27,8 @@ export class TodoController {
   }
 
   init() {
-    // if() {
-    //   this.todoModel.initStoredData();
-    // }
     document.addEventListener('DOMContentLoaded', () => {
       this.todoFormView.init();
-      this.todoListView.init();
     });
   }
 

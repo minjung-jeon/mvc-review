@@ -1,4 +1,4 @@
-import { charToBoolean } from './charToBoolean.js';
+import { charToBoolean } from './index.js';
 
 export const getRefinedData = data => {
   // fetch해온 data의 depth가 1차원이므로 deepCopy 불필요
@@ -9,12 +9,18 @@ export const getRefinedData = data => {
       return;
     }
 
+    let doneValue = false;
+
+    if(typeof item.done === 'string') {
+      doneValue = charToBoolean(item.done);
+    }
+
     Object.defineProperties(item, {
       'id': {
         value: Date.now() + index,
       },
       'done': {
-        value: charToBoolean(item.done),
+        value: doneValue,
         writable: true,
       },
       'title': {

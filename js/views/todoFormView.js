@@ -34,7 +34,7 @@ export class TodoFormView extends ViewComponent {
   _onSubmit() {
     const todoText = this.textInput.value.trim();
 
-    if(validateInputValue(todoText)) {
+    if(validateInputValue(todoText, '해당 특수문자는 사용 할 수 없습니다.')) {
       this.handleSubmit(todoText);
     }
   }

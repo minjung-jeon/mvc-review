@@ -1,5 +1,6 @@
 import Observable from '../lib/observable.js';
 import { CountModel, TodoModel } from '../models/index.js';
+import { isObject } from '../utils/index.js';
 
 export default class TodoState extends Observable {
   constructor() {
@@ -33,11 +34,11 @@ export default class TodoState extends Observable {
         title, 
         done = false
       }) => {
-        this.todos.set(id,  new TodoModel({ title, done }));
+        this.todos.set(id, new TodoModel({ title, done }));
         done ? countDone++ : countActive++;
       });
       this._setCount(countActive, countDone);
-    } else {
+    } else if (isObject(data)) {
       // 하나의 객체가 들어왔을 때 -> todo x 1개
       const {
         id = Date.now(),
@@ -46,6 +47,8 @@ export default class TodoState extends Observable {
       } = data;
       this.todos.set(id, new TodoModel({ title, done }));
       this._setCount(1, 0);
+    } else {
+      return;
     }
     
     this.updateTodos();
@@ -67,9 +70,7 @@ export default class TodoState extends Observable {
     const todo = this.todos.get(id);
     const setCountArgs = todo.done ? [1, -1] : [-1, 1];
 
-    this.todos.set(id, Object.assign(todo, {
-      'done': !todo.done
-    }));
+    todo.done = !todo.done;
     this._setCount(...setCountArgs);
 
     this.updateTodos();
