@@ -25,7 +25,7 @@ export default class App {
         todoController.init();
         // data fetching
         getStoredData(REQUEST_PATH).then((todos) => {
-            todoState.addTodo(todos);
+            todoState.addAllTodo(todos);
         });
     }
 }
